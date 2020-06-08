@@ -1,0 +1,13 @@
+package com.stubhub.atv;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ApmtoolsvaluationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ApmtoolsvaluationApplication.class, args);
+	}
+
+}
