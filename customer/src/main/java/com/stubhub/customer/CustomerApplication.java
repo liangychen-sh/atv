@@ -1,13 +1,13 @@
-package com.stubhub.atv;
+package com.stubhub.customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApmtoolsvaluationApplication {
+public class CustomerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApmtoolsvaluationApplication.class, args);
+		SpringApplication.run(CustomerApplication.class, args);
 	}
 
 }

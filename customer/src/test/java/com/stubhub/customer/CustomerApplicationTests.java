@@ -1,10 +1,10 @@
-package com.stubhub.atv;
+package com.stubhub.customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApmtoolsvaluationApplicationTests {
+class CustomerApplicationTests {
 
 	@Test
 	void contextLoads() {
