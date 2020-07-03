@@ -1,6 +1,6 @@
-package com.stubhub.customer.login.repository;
+package com.stubhub.customer.user.repository;
 
-import com.stubhub.customer.login.entity.UserEntity;
+import com.stubhub.customer.user.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long> {

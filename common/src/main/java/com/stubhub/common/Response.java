@@ -39,4 +39,12 @@ public class Response<T> {
         res.setStatus(200);
         return res;
     }
+
+    public static <T> Response<T> failed( String msg) {
+        Response res = new Response();
+        res.setData(null);
+        res.setMessage(msg);
+        res.setStatus(500);
+        return res;
+    }
 }

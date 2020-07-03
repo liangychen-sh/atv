@@ -1,4 +1,4 @@
-package com.stubhub.customer.login.entity;
+package com.stubhub.customer.user.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
