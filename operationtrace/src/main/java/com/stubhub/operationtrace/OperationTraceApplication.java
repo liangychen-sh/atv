@@ -15,4 +15,11 @@ public class OperationTraceApplication {
         SpringApplication.run(OperationTraceApplication.class);
     }
 
+    @Bean
+    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+        return args -> {
+            StackdriverTraceExporter.createAndRegister(StackdriverTraceConfiguration.builder().build());
+        };
+    }
+
 }

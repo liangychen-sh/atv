@@ -25,12 +25,6 @@ public class TestTraceController {
 
     @GetMapping("/hello_trace")
     public String testTrace(@RequestParam String anything) {
-        try {
-            StackdriverTraceExporter.createAndRegister(StackdriverTraceConfiguration.builder().build());
-
-        } catch (IOException exception) {
-            LOGGER.info("Create StackdriverTrace Fail");
-        }
 
         // Create a child Span of the current Span.
         try (Scope ss = tracer.spanBuilder("MyChildWorkSpan").setSampler(Samplers.alwaysSample()).startScopedSpan()) {
