@@ -16,7 +16,9 @@
     <modules>
         <module>customer</module>
         <module>common</module>
-        <module>common</module>
+        <module>tickets</module>
+        <module>inventory</module>
+        <module>operationtrace</module>
     </modules>
 
 
