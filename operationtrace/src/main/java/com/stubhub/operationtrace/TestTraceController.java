@@ -3,6 +3,7 @@ package com.stubhub.operationtrace;
 import io.opencensus.common.Scope;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceConfiguration;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceExporter;
+import io.opencensus.trace.Sampler;
 import io.opencensus.trace.Tracer;
 import io.opencensus.trace.Tracing;
 import io.opencensus.trace.samplers.Samplers;
@@ -25,15 +26,42 @@ public class TestTraceController {
 
     @GetMapping("/hello_trace")
     public String testTrace(@RequestParam String anything) {
-
         // Create a child Span of the current Span.
         try (Scope ss = tracer.spanBuilder("MyChildWorkSpan").setSampler(Samplers.alwaysSample()).startScopedSpan()) {
             doInitialWork();
             tracer.getCurrentSpan().addAnnotation("Finished initial work");
             doFinalWork();
+            ss.close();
+            Scope ss2 = tracer.spanBuilder("MyChildWorkSpan2").setSampler(Samplers.alwaysSample()).startScopedSpan();
+            Thread.sleep(1000);
+            ss2.close();
             return anything;
+        } catch (InterruptedException exception) {
+            LOGGER.info("Thread Interrupted Exception");
         }
+        return anything;
     }
+
+
+    @GetMapping("/hello_trace_2")
+    public String testTrace_2() {
+        try (Scope ss = tracer.spanBuilder("/hello_trace_2").startScopedSpan()) {
+
+            Thread.sleep(1000);
+            ss.close();
+        } catch (InterruptedException exception) {
+            LOGGER.info("Thread Interrupted Exception");
+        }
+
+        return "Hello trace 2";
+    }
+
+
+    @GetMapping("/hello_trace_3")
+    public String testTrace_3() {
+        return "Hello trace 3";
+    }
+
 
     private static void doInitialWork() {
         // ...
