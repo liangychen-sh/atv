@@ -27,19 +27,16 @@ public class TestTraceController {
     @GetMapping("/hello_trace")
     public String testTrace(@RequestParam String anything) {
         // Create a child Span of the current Span.
-        try (Scope ss = tracer.spanBuilder("MyChildWorkSpan").setSampler(Samplers.alwaysSample()).startScopedSpan()) {
+        try (Scope ss = tracer.spanBuilder("HelloTraceProcess").setSampler(Samplers.alwaysSample()).startScopedSpan()) {
             doInitialWork();
-            tracer.getCurrentSpan().addAnnotation("Finished initial work");
+            tracer.getCurrentSpan().addAnnotation("HelloTraceProcess-Step1");
             doFinalWork();
-            ss.close();
-            Scope ss2 = tracer.spanBuilder("MyChildWorkSpan2").setSampler(Samplers.alwaysSample()).startScopedSpan();
-            Thread.sleep(1000);
-            ss2.close();
+
+           tracer.getCurrentSpan().addAnnotation("HelloTraceProcess-Step2");
+
+
             return anything;
-        } catch (InterruptedException exception) {
-            LOGGER.info("Thread Interrupted Exception");
         }
-        return anything;
     }
 
 
@@ -64,14 +61,21 @@ public class TestTraceController {
 
 
     private static void doInitialWork() {
-        // ...
-        tracer.getCurrentSpan().addAnnotation("Doing initial work");
-        // ...
+        tracer.getCurrentSpan().addAnnotation("Hello Trace Process Step1");
+        try{
+
+            Thread.sleep(1000);
+        }catch (InterruptedException exception){
+            LOGGER.info("Thread interrupt fail");
+        }
     }
 
     private static void doFinalWork() {
-        // ...
-        tracer.getCurrentSpan().addAnnotation("Hello world!");
-        // ...
+        tracer.getCurrentSpan().addAnnotation("Hello Trace Process Step2");
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException exception){
+            LOGGER.info("Thread interrupt fail");
+        }
     }
 }
