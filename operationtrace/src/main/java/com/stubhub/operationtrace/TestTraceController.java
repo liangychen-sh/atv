@@ -27,14 +27,11 @@ public class TestTraceController {
     @GetMapping("/hello_trace")
     public String testTrace(@RequestParam String anything) {
         // Create a child Span of the current Span.
+        LOGGER.info("Starting Hello Trace");
         try (Scope ss = tracer.spanBuilder("HelloTraceProcess").setSampler(Samplers.alwaysSample()).startScopedSpan()) {
             doInitialWork();
-            tracer.getCurrentSpan().addAnnotation("HelloTraceProcess-Step1");
             doFinalWork();
-
-           tracer.getCurrentSpan().addAnnotation("HelloTraceProcess-Step2");
-
-
+            LOGGER.info("Finish Hello Trace");
             return anything;
         }
     }
@@ -61,6 +58,7 @@ public class TestTraceController {
 
 
     private static void doInitialWork() {
+        LOGGER.info("Start Hello Trace - Step1");
         tracer.getCurrentSpan().addAnnotation("Hello Trace Process Step1");
         try{
 
@@ -71,6 +69,7 @@ public class TestTraceController {
     }
 
     private static void doFinalWork() {
+        LOGGER.info("Strt Hello Trace -Step2");
         tracer.getCurrentSpan().addAnnotation("Hello Trace Process Step2");
         try{
             Thread.sleep(1000);
