@@ -1,6 +1,6 @@
 package com.stubhub.operationtrace;
 
-import com.google.auth.Credentials;
+
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceConfiguration;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceExporter;
 import org.slf4j.Logger;
@@ -10,11 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.AsyncRestTemplate;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
+
 
 @SpringBootApplication
 public class OperationTraceApplication {
@@ -33,6 +31,11 @@ public class OperationTraceApplication {
             StackdriverTraceExporter.createAndRegister(StackdriverTraceConfiguration.builder().build());
             LOGGER.info("Create and Register stackdriver exporter successfully");
         };
+    }
+
+    @Bean
+    public AsyncRestTemplate asyncRestTemplate(){
+        return new AsyncRestTemplate();
     }
 
 }
