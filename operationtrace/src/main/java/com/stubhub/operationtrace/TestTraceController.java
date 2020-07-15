@@ -2,6 +2,7 @@ package com.stubhub.operationtrace;
 
 import io.opencensus.common.Scope;
 import io.opencensus.contrib.http.util.HttpPropagationUtil;
+import io.opencensus.contrib.spring.aop.Traced;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceConfiguration;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceExporter;
 import io.opencensus.trace.Sampler;
@@ -52,6 +53,7 @@ public class TestTraceController {
     }
 
 
+    @Traced
     @GetMapping("/hello_a")
     public String test_a(){
         return "Hello a";
