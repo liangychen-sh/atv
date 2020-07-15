@@ -66,10 +66,9 @@ public class TestTraceController {
 
        Future<ResponseEntity<String>>
                result= asyncRestTemplate.getForEntity("http://localhost:8080/hello_trace_2",String.class);
-
        try{
            if(result.isDone()){
-               LOGGER.info("result: {}", result.get().getBody());
+               LOGGER.info("result: {}", result.get().toString());
            }
 
        }catch (Exception e){

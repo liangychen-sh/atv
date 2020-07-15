@@ -3,6 +3,9 @@ package com.stubhub.operationtrace;
 
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceConfiguration;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceExporter;
+import io.opencensus.trace.Tracing;
+import io.opencensus.trace.config.TraceConfig;
+import io.opencensus.trace.samplers.Samplers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +33,10 @@ public class OperationTraceApplication {
             LOGGER.info("Starting create and register stackdriver");
             StackdriverTraceExporter.createAndRegister(StackdriverTraceConfiguration.builder().build());
             LOGGER.info("Create and Register stackdriver exporter successfully");
+
+            TraceConfig traceConfig = Tracing.getTraceConfig();
+            traceConfig.updateActiveTraceParams(
+                    traceConfig.getActiveTraceParams().toBuilder().setSampler(Samplers.alwaysSample()).build());
         };
     }
 
