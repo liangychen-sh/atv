@@ -1,6 +1,7 @@
 package com.stubhub.operationtrace;
 
 import io.opencensus.common.Scope;
+import io.opencensus.contrib.http.util.HttpPropagationUtil;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceConfiguration;
 import io.opencensus.exporter.trace.stackdriver.StackdriverTraceExporter;
 import io.opencensus.trace.Sampler;
@@ -51,6 +52,12 @@ public class TestTraceController {
     }
 
 
+    @GetMapping("/hello_a")
+    public String test_a(){
+        return "Hello a";
+    }
+
+
     @GetMapping("/hello_trace_3")
     public String testTrace_3() {
         return "Hello trace 3";
@@ -76,5 +83,9 @@ public class TestTraceController {
         }catch (InterruptedException exception){
             LOGGER.info("Thread interrupt fail");
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 }
