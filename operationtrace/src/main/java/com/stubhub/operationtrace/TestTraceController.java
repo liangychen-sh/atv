@@ -11,11 +11,16 @@ import io.opencensus.trace.Tracing;
 import io.opencensus.trace.samplers.Samplers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.AsyncRestTemplate;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @RestController
 public class TestTraceController {
@@ -25,6 +30,9 @@ public class TestTraceController {
 
     // [START trace_setup_java_custom_span]
     private static final Tracer tracer = Tracing.getTracer();
+
+    @Autowired
+    private AsyncRestTemplate asyncRestTemplate;
 
     @GetMapping("/hello_trace")
     public String testTrace(@RequestParam String anything) {
@@ -53,9 +61,22 @@ public class TestTraceController {
     }
 
 
-    @Traced
     @GetMapping("/hello_a")
     public String test_a(){
+
+       Future<ResponseEntity<String>>
+               result= asyncRestTemplate.getForEntity("http://localhost:8080/hello_trace_2",String.class);
+
+       try{
+           if(result.isDone()){
+               LOGGER.info("result: {}", result.get().getBody());
+           }
+
+       }catch (Exception e){
+           LOGGER.error("Get result failed");
+       }
+
+
         return "Hello a";
     }
 
