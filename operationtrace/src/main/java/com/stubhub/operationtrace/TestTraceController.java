@@ -51,7 +51,7 @@ public class TestTraceController {
     public String testTrace_2() {
         try (Scope ss = tracer.spanBuilder("/hello_trace_2").startScopedSpan()) {
 
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             ss.close();
         } catch (InterruptedException exception) {
             LOGGER.info("Thread Interrupted Exception");
@@ -66,11 +66,12 @@ public class TestTraceController {
 
        Future<ResponseEntity<String>>
                result= asyncRestTemplate.getForEntity("http://localhost:8080/hello_trace_2",String.class);
-       try{
-           if(result.isDone()){
-               LOGGER.info("result: {}", result.get().toString());
-           }
 
+       try{
+
+               LOGGER.info("result: {}", result.get().toString());
+
+              Thread.sleep(1000);
        }catch (Exception e){
            LOGGER.error("Get result failed");
        }
