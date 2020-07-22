@@ -73,7 +73,7 @@ public class TestTraceController {
         try{
                LOGGER.info("--------Show result--------");
                LOGGER.info("result: {}", result.get().toString());
-               LOGGER.info("result2: {}", result.get().toString());
+               LOGGER.info("result2: {}", result2.get().toString());
 
               Thread.sleep(1000);
        }catch (Exception e){
