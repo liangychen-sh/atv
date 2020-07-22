@@ -6,7 +6,7 @@
         </filter>
         <log>application.log</log> <!-- Optional : default java.log -->
         <!--<resourceType>gce_app</resourceType>--> <!-- Optional : default: auto-detected, fallback: global -->
-        <enhancer>com.example.logging.logback.enhancers.ExampleEnhancer</enhancer> <!-- Optional -->
+        <enhancer>io.opencensus.contrib.logcorrelation.stackdriver.OpenCensusTraceLoggingEnhancer</enhancer>
         <flushLevel>WARN</flushLevel> <!-- Optional : default ERROR -->
     </appender>
 
